@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { z } from "zod";
@@ -12,9 +12,36 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { ImSpinner } from "react-icons/im";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER_MUTATION } from "@/graphql/queries";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import Header from "@/components/ui/Header";
 
 function SignUp() {
-   const [loading, setLoading] = useState(false);
+   const router = useRouter();
+   const { toast } = useToast();
+   const [createUser, { data, loading }] = useMutation(CREATE_USER_MUTATION, {
+      onCompleted: () => {
+         toast({
+            title: "Başarılı",
+            description: "Kullanıcı başarıyla oluşturuldu",
+         });
+      },
+      onError: (error) => {
+         toast({
+            title: "Hata",
+            description: error.message,
+            variant: "destructive",
+         });
+      },
+   });
+
+   useEffect(() => {
+      if (data) {
+         router.push(`/${data.createUser.username}`);
+      }
+   }, [data]);
 
    const form = useForm<z.infer<typeof SignupFormSchema>>({
       resolver: zodResolver(SignupFormSchema),
@@ -22,11 +49,12 @@ function SignUp() {
    });
 
    const handleSignUp = (values: z.infer<typeof SignupFormSchema>) => {
-      console.log(values);
+      createUser({ variables: { name: values.name, surname: values.surname, email: values.email, password: values.password } });
    };
 
    return (
       <div className="min-h-screen bg-bg1 pt-[106px] font-poppins py-5">
+         <Header landing={false} />
          <div>
             <div className="h-0.5 w-11/12 md:w-8/12 lg:w-6/12 max-w-2xl mx-auto bg-zinc-500 rounded-xl" />
             <div className="w-11/12 md:w-8/12 lg:w-6/12 max-w-xl mx-auto my-5 px-3">
