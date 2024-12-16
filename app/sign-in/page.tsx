@@ -5,21 +5,47 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import Header from "@/components/ui/Header";
 import { Input } from "@/components/ui/input";
+import { LOGIN_MUTATION } from "@/graphql/queries";
+import { useToast } from "@/hooks/use-toast";
 import { SigninFormSchema } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
+import { useMutation } from "@apollo/client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { ImSpinner } from "react-icons/im";
 import { z } from "zod";
 
 function SignIn() {
-   const [loading, setLoading] = useState(false);
+   const { toast } = useToast();
+   const router = useRouter();
+
+   const [login, { loading }] = useMutation(LOGIN_MUTATION, {
+      onCompleted: (data) => {
+         toast({
+            title: "Başarılı",
+            description: "Başarıyla giriş yaptınız, şimdi yönlendiriliyorsunuz.",
+         });
+         router.push(`/${data.login.username}`);
+      },
+      onError: (err) => {
+         toast({
+            title: "Hata",
+            description: err.message,
+            variant: "destructive",
+         });
+      },
+   });
    const form = useForm<z.infer<typeof SigninFormSchema>>({
       resolver: zodResolver(SigninFormSchema),
       mode: "onChange",
    });
+
+   const handleSignin = (values: z.infer<typeof SigninFormSchema>) => {
+      login({ variables: { email: values.email, password: values.password } });
+   };
 
    return (
       <div className="min-h-screen bg-bg1 pt-[106px] font-poppins py-5">
@@ -48,7 +74,7 @@ function SignIn() {
                         </div>
                      </div>
                      <Form {...form}>
-                        <form className="space-y-4">
+                        <form onSubmit={form.handleSubmit(handleSignin)} className="space-y-4">
                            <FormField
                               control={form.control}
                               name="email"

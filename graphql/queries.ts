@@ -9,8 +9,8 @@ export const CREATE_USER_MUTATION = gql`
 `;
 
 export const GET_USER_BY_USERNAME = gql`
-   query {
-      getUser {
+   query ($username: String!) {
+      getUser(username: $username) {
          id
          name
          surname
@@ -18,6 +18,14 @@ export const GET_USER_BY_USERNAME = gql`
          username
          profileImage
          status
+      }
+   }
+`;
+
+export const LOGIN_MUTATION = gql`
+   mutation ($email: String!, $password: String!) {
+      login(email: $email, password: $password) {
+         username
       }
    }
 `;

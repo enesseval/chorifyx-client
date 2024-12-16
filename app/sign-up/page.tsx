@@ -21,12 +21,13 @@ import Header from "@/components/ui/Header";
 function SignUp() {
    const router = useRouter();
    const { toast } = useToast();
-   const [createUser, { data, loading }] = useMutation(CREATE_USER_MUTATION, {
-      onCompleted: () => {
+   const [createUser, { loading }] = useMutation(CREATE_USER_MUTATION, {
+      onCompleted: (data) => {
          toast({
             title: "Başarılı",
             description: "Kullanıcı başarıyla oluşturuldu",
          });
+         router.push(`/${data.createUser.username}`);
       },
       onError: (error) => {
          toast({
@@ -36,12 +37,6 @@ function SignUp() {
          });
       },
    });
-
-   useEffect(() => {
-      if (data) {
-         router.push(`/${data.createUser.username}`);
-      }
-   }, [data]);
 
    const form = useForm<z.infer<typeof SignupFormSchema>>({
       resolver: zodResolver(SignupFormSchema),

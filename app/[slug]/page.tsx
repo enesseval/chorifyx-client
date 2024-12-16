@@ -5,15 +5,17 @@ import { GET_USER_BY_USERNAME } from "@/graphql/queries";
 import type { User } from "@/types/user";
 import { useQuery } from "@apollo/client";
 import { useParams, useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 function User() {
    const [user, setUser] = useState<User | null>(null);
    const [errorCode, setErrorCode] = useState(0);
 
    const router = useRouter();
+   const params = useParams();
 
    const { loading } = useQuery(GET_USER_BY_USERNAME, {
+      variables: { username: params.slug },
       onCompleted: (data) => {
          setUser(data.getUser);
       },
