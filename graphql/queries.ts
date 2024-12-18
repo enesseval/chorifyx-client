@@ -29,3 +29,14 @@ export const LOGIN_MUTATION = gql`
       }
    }
 `;
+
+export const GET_USERS_SEARCH = gql`
+   query ($username: String!) {
+      getUsers(username: $username) {
+         name
+         surname
+         username
+         profileImage
+      }
+   }
+`;
