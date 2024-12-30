@@ -50,7 +50,12 @@ export default function AsyncSearch() {
       <div className="relative search-container ml-5">
          <div className="relative w-[300px]">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Kullanıcı ara..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-8 text-white border-muted-foreground" />
+            <Input
+               placeholder="Kullanıcı ara..."
+               value={search}
+               onChange={(e) => setSearch(e.target.value)}
+               className="pl-8 text-white border-muted-foreground focus:border-white duration-300 transition-colors"
+            />
          </div>
 
          {isOpen && (debouncedSearch || loading) && (

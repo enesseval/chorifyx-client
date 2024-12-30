@@ -12,9 +12,9 @@ function Navbar() {
 
    if (user)
       return (
-         <div className="h-20 px-4 border-b flex items-center justify-between bg-bg1 sticky top-0">
+         <div className="h-20 px-4 border-b z-50 flex items-center justify-between bg-bg1 sticky top-0">
             <div className="flex items-center gap-4">
-               <Image src={"/logonotext.png"} alt="logo" width={60} height={50} />
+               <Image src={"/logonotext.png"} alt="logo" width={60} height={60} />
                <AsyncSearch />
             </div>
             <DropdownMenu>
