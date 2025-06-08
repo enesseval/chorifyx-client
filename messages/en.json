@@ -1,0 +1,59 @@
+{
+   "HomePage": {
+      "title": "Hello World!"
+   },
+   "landingPage": {
+      "features": "Features",
+      "testimonials": "Testimonials",
+      "pricing": "Pricing"
+   },
+   "validations": {
+      "requiredField": "This field is required.",
+      "minName": "Your name must be at least 2 characters.",
+      "minSurname": "Your surname must be at least 2 characters.",
+      "validEmail": "Please enter a valid email address.",
+      "minPassword": "Your password must be at least 8 characters long.",
+      "passwordContainsCharacter": "Your password must contain at least one letter.",
+      "passwordContainsNumber": "Your password must contain at least one number.",
+      "passwordContainsSpecial": "Your password must contain at least one special character."
+   },
+   "Auth": {
+      "register": {
+         "name": "First Name",
+         "surname": "Last Name",
+         "mail": "Email",
+         "password": "Password"
+      }
+   },
+   "errors": {
+      "EMAIL_ALREADY_EXISTS": "This email address is already in use.",
+      "USER_CREATION_FAILED": "An error occurred during registration.",
+      "INTERNAL_SERVER_ERROR": "An internal server error occurred.",
+      "UNKNOWN": "An unknown error occurred."
+   },
+   "success": {
+      "REGISTER_SUCCESS": "Registration successful!"
+   },
+   "loading": {
+      "REGISTERING": "Creating account..."
+   },
+   "navbar": {
+      "back": "Back",
+      "features": "Features",
+      "testimonials": "Testimonials",
+      "pricing": "Pricing",
+      "startFree": "Start Free"
+   },
+   "auth": {
+      "login": "Login",
+      "haveAccount": "Already have an account?",
+      "dontHaveAccount": "Don’t have an account?",
+      "register": "Sign Up",
+      "or": "OR",
+      "continueGoogle": "Continue with Google"
+   },
+   "footer": {
+      "turkish": "Turkish",
+      "english": "English"
+   }
+}

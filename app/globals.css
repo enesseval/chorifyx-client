@@ -53,9 +53,9 @@
    --popover-foreground: oklch(0.145 0 0);
    --primary: oklch(0.205 0 0);
    --primary-foreground: oklch(0.985 0 0);
-   --secondary: oklch(0.97 0 0);
-   --secondary-foreground: oklch(0.205 0 0);
-   --muted: oklch(0.97 0 0);
+   --secondary: oklch(0.4886 0.1117 252.15);
+   --secondary-foreground: oklch(0.3695 0.0811 252.42);
+   --muted: oklch(0.8361 0.0519 252.96);
    --muted-foreground: oklch(0.556 0 0);
    --accent: oklch(0.97 0 0);
    --accent-foreground: oklch(0.205 0 0);
@@ -118,6 +118,9 @@
    }
    body {
       @apply bg-background text-foreground;
+   }
+   html {
+      scroll-behavior: smooth;
    }
 }
 

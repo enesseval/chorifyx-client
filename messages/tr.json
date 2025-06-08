@@ -1,0 +1,60 @@
+{
+   "HomePage": {
+      "title": "Merhaba Dünya!"
+   },
+   "landingPage": {
+      "features": "Özellikler",
+      "testimonials": "Yorumlar",
+      "pricing": "Fiyatlandırma"
+   },
+   "validations": {
+      "requiredField": "Bu alan zorunludur.",
+      "minName": "Adınız en az 2 karakter olmalı.",
+      "minSurname": "Soyadınız en az 2 karakter olmalı.",
+      "validEmail": "Lütfen geçerli bir mail adresi giriniz.",
+      "minPassword": "Parolanız en az 8 karakter uzunluğunda olmalı.",
+      "passwordContainsCharacter": "Parolanız en az 1 karakter içermeli.",
+      "passwordContainsNumber": "Parolanız en az bir sayı içermeli.",
+      "passwordContainsSpecial": "Parolanız en az bir özel karakter içermeli."
+   },
+
+   "Auth": {
+      "register": {
+         "name": "Adınız",
+         "surname": "Soyadınız",
+         "mail": "Mail",
+         "password": "Şifre"
+      }
+   },
+   "errors": {
+      "EMAIL_ALREADY_EXISTS": "Bu e-posta adresi zaten kullanılıyor.",
+      "USER_CREATION_FAILED": "Kayıt sırasında bir hata oluştu.",
+      "INTERNAL_SERVER_ERROR": "Sunucuda bir hata oluştu.",
+      "UNKNOWN": "Bilinmeyen bir hata oluştu."
+   },
+   "success": {
+      "REGISTER_SUCCESS": "Kayıt başarılı!"
+   },
+   "loading": {
+      "REGISTERING": "Kayıt oluşturuluyor..."
+   },
+   "navbar": {
+      "back": "Geri",
+      "features": "Özellikler",
+      "testimonials": "Yorumlar",
+      "pricing": "Fiyatlandırma",
+      "startFree": "Ücretsiz Başla"
+   },
+   "auth": {
+      "login": "Giriş Yap",
+      "haveAccount": "Hesabın var mı?",
+      "dontHaveAccount": "Hesabın yok mu?",
+      "register": "Kayıt Ol",
+      "or": "YADA",
+      "continueGoogle": "Google ile devam et"
+   },
+   "footer": {
+      "turkish": "Türkçe",
+      "english": "İngilizce"
+   }
+}

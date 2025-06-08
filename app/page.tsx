@@ -8,6 +8,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Calendar, Zap, Users, ArrowRight, CheckCircle, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
+import Navbar from "@/components/navbar";
 
 // İnternetten bulduğum ve projeye uygun görseller
 const heroImage = "https://images.unsplash.com/photo-1658937409953-152c15555473?q=80&w=2835&auto=format&fit=crop"; // Soyut takvim arayüzü
@@ -15,6 +17,7 @@ const featureImage1 = "https://images.unsplash.com/photo-1557804506-669a67965ba0
 const featureImage2 = "https://images.unsplash.com/photo-1588196749107-15d05b41054e?q=80&w=2942&auto=format&fit=crop"; // Odaklanmış çalışma
 
 export default function LandingPage() {
+   const t = useTranslations("landingPage");
    const FADE_IN_UP_VARIANTS = {
       hidden: { opacity: 0, y: 20 },
       visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -31,37 +34,9 @@ export default function LandingPage() {
    };
 
    return (
-      <div className="flex flex-col min-h-screen bg-white text-gray-800">
+      <div className="flex flex-col min-h-screen bg-white text-gray-800 relative">
          {/* Header */}
-         <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
-            <div className="container mx-auto flex h-16 items-center justify-between px-4">
-               <Link href="/" className="flex items-center gap-2">
-                  <Image src="/logo.png" alt="Chorifyx Logo" width={40} height={40} />
-                  <span className="font-bold text-xl text-gray-800">Chorifyx</span>
-               </Link>
-               <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-                  <Link href="#features" className="hover:text-blue-600 transition-colors">
-                     Özellikler
-                  </Link>
-                  <Link href="#testimonials" className="hover:text-blue-600 transition-colors">
-                     Yorumlar
-                  </Link>
-                  <Link href="#pricing" className="hover:text-blue-600 transition-colors">
-                     Fiyatlandırma
-                  </Link>
-               </nav>
-               <div className="flex items-center gap-4">
-                  <Button variant="ghost" asChild>
-                     <Link href="/auth/login">Giriş Yap</Link>
-                  </Button>
-                  <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white shadow-md transition-transform duration-200 hover:scale-105">
-                     <Link href="/auth/register">
-                        Ücretsiz Başla <ArrowRight className="ml-2 h-4 w-4" />
-                     </Link>
-                  </Button>
-               </div>
-            </div>
-         </header>
+         <Navbar landing={true} />
 
          <main className="flex-1">
             {/* Hero Section */}
