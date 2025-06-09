@@ -55,5 +55,18 @@
    "footer": {
       "turkish": "Turkish",
       "english": "English"
+   },
+
+   "verify": {
+      "title": "Email Verification",
+      "description": "Please enter the verification code sent to your email address.",
+      "remainingTime": "Time Left: {time}",
+      "expiredCode": {
+         "canResend": "Your code has expired. Please request a new one.",
+         "limitReached": "Your verification time and resend limit have been reached. Please click the help button to request assistance."
+      },
+      "resend": "Resend code",
+      "help": "Get Help",
+      "verifying": "Verifying code"
    }
 }

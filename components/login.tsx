@@ -1,4 +1,4 @@
-import { RegisterFormValues, registerSchema } from "@/lib/validations/authValidations";
+import { LoginFormValues, loginSchema } from "@/lib/validations/authValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -11,27 +11,24 @@ import { toast } from "sonner";
 import { authApi } from "@/services/api";
 import { useRouter } from "next/navigation";
 
-function Register() {
+function Login() {
    const t = useTranslations();
    const router = useRouter();
-
-   const form = useForm<RegisterFormValues>({
-      resolver: zodResolver(registerSchema(t)),
+   const form = useForm<LoginFormValues>({
+      resolver: zodResolver(loginSchema(t)),
       defaultValues: {
-         name: "",
-         surname: "",
          email: "",
          password: "",
       },
       mode: "onSubmit",
    });
 
-   const handleSubmit = async (data: RegisterFormValues) => {
-      const toastId = toast.loading("Kayıt oluşturuluyor.");
+   const handleSubmit = async (data: LoginFormValues) => {
+      const toastId = toast.loading("Giriş Yapılıyor");
       try {
-         const response = await authApi.register(data);
+         const response = await authApi.login(data);
 
-         toast.success("Kayıt başarılı", { id: toastId });
+         toast.success("Giriş Yapıldı. Yönlendiriliyorunuz.", { id: toastId });
 
          router.push(`/${response.username}`);
       } catch (error: any) {
@@ -45,32 +42,6 @@ function Register() {
    return (
       <Form {...form}>
          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4 mx-10 my-4 min-w-[300px]">
-            <FormField
-               control={form.control}
-               name="name"
-               render={({ field }) => (
-                  <FormItem>
-                     <FormLabel>{t("auth.name")}</FormLabel>
-                     <FormControl>
-                        <Input {...field} placeholder="Adınız" />
-                     </FormControl>
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
-            <FormField
-               control={form.control}
-               name="surname"
-               render={({ field }) => (
-                  <FormItem>
-                     <FormLabel>{t("auth.surname")}</FormLabel>
-                     <FormControl>
-                        <Input {...field} placeholder="Soyadınız" className="" />
-                     </FormControl>
-                     <FormMessage />
-                  </FormItem>
-               )}
-            />
             <FormField
                control={form.control}
                name="email"
@@ -99,11 +70,11 @@ function Register() {
             />
 
             <Button type="submit" className="cursor-pointer w-full h-11 font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30">
-               {t("auth.createAccount")} <ArrowRight className="ml-2 h-4 w-4" />
+               {t("auth.login")} <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
          </form>
       </Form>
    );
 }
 
-export default Register;
+export default Login;

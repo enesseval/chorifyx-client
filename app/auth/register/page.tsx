@@ -97,7 +97,7 @@ export default function RegisterPage() {
                         <FormLabel>{t("Auth.register.name")}</FormLabel>
                         <FormControl>
                            <motion.div variants={itemVariants} className="grid gap-2">
-                              <Input {...field} placeholder="Adınız" className="bg-white/5 border-white/30 focus:bg-white/10" />
+                              <Input {...field} placeholder="Adınız" />
                            </motion.div>
                         </FormControl>
                         <FormMessage />
@@ -112,7 +112,7 @@ export default function RegisterPage() {
                         <FormLabel>{t("Auth.register.surname")}</FormLabel>
                         <FormControl>
                            <motion.div variants={itemVariants} className="grid gap-2">
-                              <Input {...field} placeholder="Soyadınız" className="bg-white/5 border-white/30 focus:bg-white/10" />
+                              <Input {...field} placeholder="Soyadınız" />
                            </motion.div>
                         </FormControl>
                         <FormMessage />
@@ -127,7 +127,7 @@ export default function RegisterPage() {
                         <FormLabel>{t("Auth.register.mail")}</FormLabel>
                         <FormControl>
                            <motion.div variants={itemVariants} className="grid gap-2">
-                              <Input {...field} placeholder="ornek@ornek.com" type="email" className="bg-white/5 border-white/30 focus:bg-white/10" />
+                              <Input {...field} placeholder="ornek@ornek.com" type="email" />
                            </motion.div>
                         </FormControl>
                         <FormMessage />
@@ -142,7 +142,7 @@ export default function RegisterPage() {
                         <FormLabel>{t("Auth.register.password")}</FormLabel>
                         <FormControl>
                            <motion.div variants={itemVariants} className="grid gap-2">
-                              <Input {...field} placeholder="**********" type="password" className="bg-white/5 border-white/30 focus:bg-white/10" />
+                              <Input {...field} placeholder="**********" type="password" />
                            </motion.div>
                         </FormControl>
                         <FormMessage />
@@ -152,7 +152,7 @@ export default function RegisterPage() {
 
                <motion.div variants={itemVariants} className="pt-2">
                   <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }} transition={{ type: "spring", stiffness: 400, damping: 17 }}>
-                     <Button type="submit" className="cursor-pointer w-full h-11 font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30">
+                     <Button className="cursor-pointer w-full h-11 font-bold bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/30">
                         Hesap Oluştur <ArrowRight className="ml-2 h-4 w-4" />
                      </Button>
                   </motion.div>

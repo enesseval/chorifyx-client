@@ -17,20 +17,13 @@
       "passwordContainsNumber": "Parolanız en az bir sayı içermeli.",
       "passwordContainsSpecial": "Parolanız en az bir özel karakter içermeli."
    },
-
-   "Auth": {
-      "register": {
-         "name": "Adınız",
-         "surname": "Soyadınız",
-         "mail": "Mail",
-         "password": "Şifre"
-      }
-   },
    "errors": {
       "EMAIL_ALREADY_EXISTS": "Bu e-posta adresi zaten kullanılıyor.",
       "USER_CREATION_FAILED": "Kayıt sırasında bir hata oluştu.",
       "INTERNAL_SERVER_ERROR": "Sunucuda bir hata oluştu.",
-      "UNKNOWN": "Bilinmeyen bir hata oluştu."
+      "UNKNOWN": "Bilinmeyen bir hata oluştu.",
+      "USER_NOT_FOUND": "Kullanıcı bulunamadı.",
+      "INVALID_PASSWORD": "Hatalı şifre."
    },
    "success": {
       "REGISTER_SUCCESS": "Kayıt başarılı!"
@@ -51,10 +44,27 @@
       "dontHaveAccount": "Hesabın yok mu?",
       "register": "Kayıt Ol",
       "or": "YADA",
-      "continueGoogle": "Google ile devam et"
+      "continueGoogle": "Google ile devam et",
+      "createAccount": "Hesap Oluştur",
+      "name": "Adınız",
+      "surname": "Soyadınız",
+      "mail": "Mail",
+      "password": "Şifre"
    },
    "footer": {
       "turkish": "Türkçe",
       "english": "İngilizce"
+   },
+   "verify": {
+      "title": "Email Doğrulama",
+      "description": "Email adresinize gönderilen doğrulama kodunu giriniz.",
+      "remainingTime": "Kalan Süre: {time}",
+      "expiredCode": {
+         "canResend": "Kodunuzun süresi dolmuştur. Lütfen yeni kod talep ediniz.",
+         "limitReached": "Kodunuzun doğrulama süresi ve kod talep etme limitiniz dolmuştur. Lütfen yardım al butonuna tıklayarak yardım talebi oluşturunuz."
+      },
+      "resend": "Yeni kod gönder",
+      "help": "Yardım Al",
+      "verifying": "Kod kontrol ediliyor"
    }
 }
