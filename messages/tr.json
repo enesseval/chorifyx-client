@@ -59,7 +59,7 @@
       "title": "Email Doğrulama",
       "description": "Email adresinize gönderilen doğrulama kodunu giriniz.",
       "remainingTime": "Kalan Süre: {time}",
-      "expiredCode": {
+      "expireCode": {
          "canResend": "Kodunuzun süresi dolmuştur. Lütfen yeni kod talep ediniz.",
          "limitReached": "Kodunuzun doğrulama süresi ve kod talep etme limitiniz dolmuştur. Lütfen yardım al butonuna tıklayarak yardım talebi oluşturunuz."
       },

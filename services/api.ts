@@ -22,8 +22,12 @@ export const authApi = {
       const response = await axiosInstance.get("/auth/user");
       return response.data;
    },
-   verify: async (data: string) => {
+   verify: async (data: { code: string }) => {
       const response = await axiosInstance.post("/auth/verify", data);
+      return response.data;
+   },
+   resend: async () => {
+      const response = await axiosInstance.post("/auth/resend");
       return response.data;
    },
 };
