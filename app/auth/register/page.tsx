@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { RegisterFormValues, registerSchema } from "@/lib/validations/authValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { authApi } from "@/services/api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 export default function RegisterPage() {
    const t = useTranslations();

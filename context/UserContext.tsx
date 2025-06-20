@@ -20,7 +20,7 @@ export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       const fetchUser = async () => {
          try {
             const response = await authApi.getUser();
-            console.log(response);
+
             if (!response.user) router.push("/unauthorized");
 
             setUser(response.user);
