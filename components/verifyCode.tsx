@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Mail } from "lucide-react";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "./ui/input-otp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -8,16 +8,15 @@ import { motion } from "framer-motion";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import { authApi } from "@/services/api";
-import { Skeleton } from "./ui/skeleton";
 import { cn } from "@/lib/utils";
+import { Skeleton } from "./ui/skeleton";
 
 function VerifyCode({ codeExpires, verificationAttempts }: { codeExpires: Date | string | null; verificationAttempts: number }) {
    const t = useTranslations("verify");
    const [timeLeft, setTimeLeft] = useState<number | null>(null);
    const [otpValue, setOtpValue] = useState("");
    const [isSubmitting, setIsSubmitting] = useState(false);
-   const [currentCodeExpires, setCurrentCodeExpires] = useState<Date | null>(null);
-   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(null);
+   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
    const formatTime = (seconds: number) => {
       const minutes = Math.floor(seconds / 60);
@@ -26,31 +25,39 @@ function VerifyCode({ codeExpires, verificationAttempts }: { codeExpires: Date |
    };
 
    const startTimer = (expiresAt: Date) => {
-      if (timerInterval) {
-         clearInterval(timerInterval);
-         setTimerInterval(null);
+      if (timerRef.current) {
+         clearInterval(timerRef.current);
       }
 
       const expirationTime = expiresAt.getTime();
 
-      const now = Date.now();
-      const initialRemaining = Math.max(0, Math.floor((expirationTime - now) / 1000));
-      setTimeLeft(initialRemaining);
-
-      const interval = setInterval(() => {
+      const tick = () => {
          const now = Date.now();
          const remaining = Math.max(0, Math.floor((expirationTime - now) / 1000));
-
          setTimeLeft(remaining);
 
-         if (remaining <= 0) {
-            clearInterval(interval);
-            setTimerInterval(null);
+         if (remaining <= 0 && timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
          }
-      }, 1000);
+      };
 
-      setTimerInterval(interval);
+      tick();
+      timerRef.current = setInterval(tick, 1000);
    };
+
+   useEffect(() => {
+      if (!codeExpires) return;
+      const date = codeExpires instanceof Date ? codeExpires : new Date(codeExpires);
+      startTimer(date);
+
+      return () => {
+         if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+         }
+      };
+   }, [codeExpires]);
 
    const onVerify = async () => {
       setIsSubmitting(true);
@@ -70,22 +77,16 @@ function VerifyCode({ codeExpires, verificationAttempts }: { codeExpires: Date |
       }
    };
 
-   // Doğrulama kodunu yeniden gönderme
-   // BURDA BİR MANTIK HATASI VAR. KOD YENİDEN GÖNDERİLDİĞİNDE TİMER GÜNCELLENMELİ ? ?? ? ? ? ? ?
    const resendVerifyCode = async () => {
       const toastId = toast.loading("Doğrulama kodu yeniden gönderiliyor.");
 
       try {
          const response = await authApi.resend();
-
          toast.success("Kod yeniden gönderildi", { id: toastId });
 
-         if (response?.data?.codeExpires) {
-            const newExpires = new Date(response.data.codeExpires);
-            setCurrentCodeExpires(newExpires);
-         } else {
-            setCurrentCodeExpires(new Date(Date.now() + 15 * 60 * 1000));
-         }
+         const newExpires = response.newDate ? new Date(response.newDate) : new Date(Date.now() + 15 * 60 * 1000);
+
+         startTimer(newExpires);
       } catch (error: any) {
          const errorKey = error?.response?.data?.error || "UNKNOWN";
          const translatedMessage = t(`errors.${errorKey}`);
@@ -99,26 +100,7 @@ function VerifyCode({ codeExpires, verificationAttempts }: { codeExpires: Date |
       }
    }, [otpValue]);
 
-   useEffect(() => {
-      if (!codeExpires) return;
-
-      const expiresDate = codeExpires instanceof Date ? codeExpires : new Date(codeExpires);
-      setCurrentCodeExpires(expiresDate);
-   }, [codeExpires]);
-
-   useEffect(() => {
-      if (currentCodeExpires) {
-         startTimer(currentCodeExpires);
-      }
-      return () => {
-         if (timerInterval) {
-            clearInterval(timerInterval);
-            setTimerInterval(null);
-         }
-      };
-   }, [currentCodeExpires]);
-
-   if (!currentCodeExpires || timeLeft === null) {
+   if (timerRef === null || timeLeft === null) {
       return (
          <div className="min-h-screen flex items-center justify-center bg-[f8f9fc] p-4">
             <Card className="w-full max-w-md">
